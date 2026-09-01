@@ -175,15 +175,14 @@ describe("Design Token System", () => {
   });
 
   describe("Theme Support", () => {
-    it("has dark theme defaults in :root using Dracula primitives", () => {
-      // Dark theme is the default in :root, using Dracula primitives
+    it("has dark theme defaults with RackWise AV interaction accents", () => {
+      // The inherited dark surfaces remain stable while product interactions
+      // use the RackWise AV blue/cyan accent pair.
       expect(tokensCSS).toContain(":root {");
       expect(tokensCSS).toContain("--colour-bg: var(--dracula-bg)");
       expect(tokensCSS).toContain("--colour-text: var(--dracula-foreground)");
-      // Selection uses pink (not purple) to avoid conflict with network device colour
-      // CSS may have multi-line var() declarations, so check parts separately
       expect(tokensCSS).toMatch(
-        /--colour-selection:\s*var\(\s*--dracula-pink\s*\)/,
+        /--colour-selection:\s*var\(\s*--rackwise-blue\s*\)/,
       );
     });
   });

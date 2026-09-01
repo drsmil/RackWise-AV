@@ -49,8 +49,8 @@ export function assertSchemaVersionSupported(
   }
   if (majorOf(schemaVersion) > majorOf(SCHEMA_VERSION)) {
     throw new Error(
-      `This layout was created by a newer version of Rackula (format ${schemaVersion}). ` +
-        `Update Rackula to open it. Your file was not changed.`,
+      `This layout was created by a newer version of RackWise AV (format ${schemaVersion}). ` +
+        `Update RackWise AV to open it. Your file was not changed.`,
     );
   }
 }

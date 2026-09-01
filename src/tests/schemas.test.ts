@@ -407,6 +407,75 @@ describe("DeviceTypeSchema", () => {
     });
   });
 
+  describe("commercial catalog metadata", () => {
+    it("accepts verified dimensions and distributor offers", () => {
+      const device = {
+        ...validBaseDevice,
+        depth_mm: 381,
+        width_mm: 482.6,
+        rear_clearance_mm: 76.2,
+        power_draw_watts: 125,
+        heat_output_btu: 426.5,
+        requires_ventilation: true,
+        max_load_kg: 22.7,
+        required_accessories: ["rack-screws-10-32"],
+        vendor_offers: [
+          {
+            vendor: "snap-one",
+            vendor_sku: "DEMO-SKU",
+            price: 149.99,
+            currency: "USD",
+            product_url: "https://www.snaponepartnerstore.com/",
+            availability: "unknown",
+            last_verified_at: "2026-09-01T12:00:00.000Z",
+          },
+        ],
+      };
+
+      const result = DeviceTypeSchema.safeParse(device);
+
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.vendor_offers?.[0]?.vendor).toBe("snap-one");
+        expect(result.data.depth_mm).toBe(381);
+      }
+    });
+
+    it("rejects negative distributor prices", () => {
+      const device = {
+        ...validBaseDevice,
+        vendor_offers: [
+          {
+            vendor: "adi",
+            price: -1,
+            currency: "USD",
+            product_url: "https://www.adiglobaldistribution.us/",
+            availability: "unknown",
+          },
+        ],
+      };
+
+      expect(DeviceTypeSchema.safeParse(device).success).toBe(false);
+    });
+
+    it("rejects non-HTTPS purchase links", () => {
+      const device = {
+        ...validBaseDevice,
+        vendor_offers: [
+          {
+            vendor: "other",
+            price: null,
+            currency: "USD",
+            product_url: "http://example.com/product",
+            availability: "unknown",
+          },
+        ],
+      };
+
+      expect(DeviceTypeSchema.safeParse(device).success).toBe(false);
+    });
+  });
+
   describe("u_height validation", () => {
     it("accepts 0.5U height", () => {
       const device = { ...validBaseDevice, u_height: 0.5 };
@@ -811,6 +880,43 @@ describe("RackSchema", () => {
 
     it("rejects non-finite depth", () => {
       const rack = { ...validRack, depth_mm: Number.POSITIVE_INFINITY };
+      expect(RackSchema.safeParse(rack).success).toBe(false);
+    });
+  });
+
+  describe("commercial rack metadata", () => {
+    it("accepts a branded rack with a distributor offer", () => {
+      const rack = {
+        ...validRack,
+        manufacturer: "Middle Atlantic",
+        model: "Demo Rack",
+        part_number: "DEMO-RACK",
+        max_load_kg: 340,
+        vendor_offers: [
+          {
+            vendor: "adi",
+            vendor_sku: "DEMO-RACK",
+            price: null,
+            currency: "USD",
+            product_url: "https://www.adiglobaldistribution.us/",
+            availability: "unknown",
+            last_verified_at: null,
+          },
+        ],
+      };
+
+      const result = RackSchema.safeParse(rack);
+
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.manufacturer).toBe("Middle Atlantic");
+        expect(result.data.max_load_kg).toBe(340);
+      }
+    });
+
+    it("rejects a non-positive maximum load", () => {
+      const rack = { ...validRack, max_load_kg: 0 };
+
       expect(RackSchema.safeParse(rack).success).toBe(false);
     });
   });

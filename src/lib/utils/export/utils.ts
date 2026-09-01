@@ -33,7 +33,7 @@ export function generateExportFilename(
   format: ExportFormat,
 ): string {
   // Slugify the layout name through the shared filename sanitizer.
-  const baseName = slugifyForFilename(layoutName, "Rackula-export");
+  const baseName = slugifyForFilename(layoutName, "RackWise-AV-export");
 
   // Format date as YYYY-MM-DD
   const now = new Date();

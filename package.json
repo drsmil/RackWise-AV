@@ -1,14 +1,14 @@
 {
-  "name": "rackula",
-  "version": "26.8.0",
-  "description": "Drag and drop rack visualizer",
-  "author": "ggfevans",
+  "name": "rackwise-av",
+  "version": "26.9.0",
+  "description": "Dimension-aware AV media rack configurator and bill of materials builder",
+  "author": "drsmil and contributors",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/RackulaLives/Rackula.git"
+    "url": "https://github.com/drsmil/RackWise-AV.git"
   },
-  "homepage": "https://github.com/RackulaLives/Rackula",
+  "homepage": "https://github.com/drsmil/RackWise-AV",
   "private": true,
   "type": "module",
   "scripts": {

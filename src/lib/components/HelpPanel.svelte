@@ -45,7 +45,7 @@
   const buildTime = typeof __BUILD_TIME__ !== "undefined" ? __BUILD_TIME__ : "";
   const isDirty = typeof __GIT_DIRTY__ !== "undefined" ? __GIT_DIRTY__ : false;
   const commitUrl = commitHash
-    ? `https://github.com/RackulaLives/Rackula/commit/${commitHash}`
+    ? `https://github.com/drsmil/RackWise-AV/commit/${commitHash}`
     : "";
 
   // Live-updating relative time for build timestamp
@@ -75,7 +75,7 @@
     const lines: string[] = [];
 
     // Line 1: Version with commit/branch/dirty context
-    let versionLine = `Rackula v${VERSION}`;
+    let versionLine = `RackWise AV v${VERSION}`;
     if (commitHash) {
       const parts = [commitHash];
       if (branchName) parts.push(branchName);
@@ -140,14 +140,14 @@
   // mouse-gesture rows the palette has no equivalent for (#3000).
   const shortcutGroups = getHelpGroups();
 
-  const GITHUB_URL = "https://github.com/RackulaLives/Rackula";
-  const DOCS_URL = "https://docs.racku.la";
+  const GITHUB_URL = "https://github.com/drsmil/RackWise-AV";
+  const DOCS_URL = `${GITHUB_URL}#readme`;
 
   // Pre-filled issue URLs
   const bugReportUrl = $derived.by(() => {
     const params = new URLSearchParams({
       template: "bug-report.yml",
-      browser: `Rackula v${VERSION} on ${userAgent}`,
+      browser: `RackWise AV v${VERSION} on ${userAgent}`,
     });
     return `${GITHUB_URL}/issues/new?${params.toString()}`;
   });
@@ -155,7 +155,7 @@
   const discussionsUrl = `${GITHUB_URL}/discussions`;
 </script>
 
-<Dialog {open} title="About Rackula" size="L" {onclose}>
+<Dialog {open} title="About RackWise AV" size="L" {onclose}>
   <div class="about-content">
     <!-- Header: Logo -->
     <header class="about-header">

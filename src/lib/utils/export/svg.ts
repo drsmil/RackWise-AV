@@ -50,7 +50,7 @@ const LEGEND_TEXT_WIDTH = 160; // Available width for legend device names
 // QR Code export constants
 const QR_SIZE = 150; // Size of QR code in pixels for screen exports
 const QR_PADDING = 10; // Padding around QR code
-const QR_LABEL_HEIGHT = 20; // Height for "Scan to open in Rackula" label
+const QR_LABEL_HEIGHT = 20; // Height for the RackWise AV QR label
 
 // Brand colours for QR label
 const BRAND_PURPLE_DARK = "#BD93F9";
@@ -1427,7 +1427,7 @@ export function generateExportSVG(
       `translate(${sidebarX}, ${Math.max(qrY, EXPORT_PADDING)})`,
     );
 
-    // Label: "Scan to open in Rackula" with Rackula in brand purple
+    // Label: "Scan to open in RackWise AV" with the product name accented
     const labelGroup = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "text",
@@ -1455,7 +1455,7 @@ export function generateExportSVG(
       isDark ? BRAND_PURPLE_DARK : BRAND_PURPLE_LIGHT,
     );
     labelPart2.setAttribute("font-weight", "600");
-    labelPart2.textContent = "Rackula";
+    labelPart2.textContent = "RackWise AV";
     labelGroup.appendChild(labelPart2);
 
     qrGroup.appendChild(labelGroup);
