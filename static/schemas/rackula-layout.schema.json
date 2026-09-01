@@ -88,6 +88,10 @@
             },
             "type": "object"
           },
+          "depth_mm": {
+            "exclusiveMinimum": 0,
+            "type": "number"
+          },
           "device_bays": {
             "items": {
               "additionalProperties": {},
@@ -109,6 +113,10 @@
           },
           "front_image": {
             "type": "boolean"
+          },
+          "heat_output_btu": {
+            "minimum": 0,
+            "type": "number"
           },
           "interfaces": {
             "items": {
@@ -294,6 +302,10 @@
             "maxLength": 100,
             "type": "string"
           },
+          "max_load_kg": {
+            "exclusiveMinimum": 0,
+            "type": "number"
+          },
           "model": {
             "maxLength": 100,
             "type": "string"
@@ -305,6 +317,10 @@
           "part_number": {
             "maxLength": 100,
             "type": "string"
+          },
+          "power_draw_watts": {
+            "minimum": 0,
+            "type": "number"
           },
           "power_outlets": {
             "items": {
@@ -386,7 +402,23 @@
             },
             "type": "array"
           },
+          "rear_clearance_mm": {
+            "minimum": 0,
+            "type": "number"
+          },
           "rear_image": {
+            "type": "boolean"
+          },
+          "required_accessories": {
+            "items": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "requires_ventilation": {
             "type": "boolean"
           },
           "serial_number": {
@@ -506,6 +538,75 @@
             "maximum": 9007199254740991,
             "type": "integer"
           },
+          "vendor_offers": {
+            "items": {
+              "additionalProperties": {},
+              "properties": {
+                "availability": {
+                  "enum": [
+                    "in-stock",
+                    "limited",
+                    "out-of-stock",
+                    "unknown"
+                  ],
+                  "type": "string"
+                },
+                "currency": {
+                  "const": "USD",
+                  "type": "string"
+                },
+                "last_verified_at": {
+                  "anyOf": [
+                    {
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "price": {
+                  "anyOf": [
+                    {
+                      "minimum": 0,
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "product_url": {
+                  "format": "uri",
+                  "type": "string"
+                },
+                "vendor": {
+                  "enum": [
+                    "snap-one",
+                    "adi",
+                    "other"
+                  ],
+                  "type": "string"
+                },
+                "vendor_sku": {
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "vendor",
+                "price",
+                "currency",
+                "product_url",
+                "availability"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
           "weight": {
             "exclusiveMinimum": 0,
             "type": "number"
@@ -516,6 +617,10 @@
               "lb"
             ],
             "type": "string"
+          },
+          "width_mm": {
+            "exclusiveMinimum": 0,
+            "type": "number"
           }
         },
         "required": [
@@ -781,6 +886,18 @@
           "minLength": 1,
           "type": "string"
         },
+        "manufacturer": {
+          "maxLength": 100,
+          "type": "string"
+        },
+        "max_load_kg": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "model": {
+          "maxLength": 100,
+          "type": "string"
+        },
         "name": {
           "maxLength": 100,
           "minLength": 1,
@@ -788,6 +905,10 @@
         },
         "notes": {
           "maxLength": 1000,
+          "type": "string"
+        },
+        "part_number": {
+          "maxLength": 100,
           "type": "string"
         },
         "position": {
@@ -803,6 +924,75 @@
           "maximum": 9007199254740991,
           "minimum": 1,
           "type": "integer"
+        },
+        "vendor_offers": {
+          "items": {
+            "additionalProperties": {},
+            "properties": {
+              "availability": {
+                "enum": [
+                  "in-stock",
+                  "limited",
+                  "out-of-stock",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              "currency": {
+                "const": "USD",
+                "type": "string"
+              },
+              "last_verified_at": {
+                "anyOf": [
+                  {
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "price": {
+                "anyOf": [
+                  {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "product_url": {
+                "format": "uri",
+                "type": "string"
+              },
+              "vendor": {
+                "enum": [
+                  "snap-one",
+                  "adi",
+                  "other"
+                ],
+                "type": "string"
+              },
+              "vendor_sku": {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "vendor",
+              "price",
+              "currency",
+              "product_url",
+              "availability"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
         "width": {
           "anyOf": [
@@ -1093,6 +1283,18 @@
             "minLength": 1,
             "type": "string"
           },
+          "manufacturer": {
+            "maxLength": 100,
+            "type": "string"
+          },
+          "max_load_kg": {
+            "exclusiveMinimum": 0,
+            "type": "number"
+          },
+          "model": {
+            "maxLength": 100,
+            "type": "string"
+          },
           "name": {
             "maxLength": 100,
             "minLength": 1,
@@ -1100,6 +1302,10 @@
           },
           "notes": {
             "maxLength": 1000,
+            "type": "string"
+          },
+          "part_number": {
+            "maxLength": 100,
             "type": "string"
           },
           "position": {
@@ -1115,6 +1321,75 @@
             "maximum": 9007199254740991,
             "minimum": 1,
             "type": "integer"
+          },
+          "vendor_offers": {
+            "items": {
+              "additionalProperties": {},
+              "properties": {
+                "availability": {
+                  "enum": [
+                    "in-stock",
+                    "limited",
+                    "out-of-stock",
+                    "unknown"
+                  ],
+                  "type": "string"
+                },
+                "currency": {
+                  "const": "USD",
+                  "type": "string"
+                },
+                "last_verified_at": {
+                  "anyOf": [
+                    {
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "price": {
+                  "anyOf": [
+                    {
+                      "minimum": 0,
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "product_url": {
+                  "format": "uri",
+                  "type": "string"
+                },
+                "vendor": {
+                  "enum": [
+                    "snap-one",
+                    "adi",
+                    "other"
+                  ],
+                  "type": "string"
+                },
+                "vendor_sku": {
+                  "maxLength": 100,
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "vendor",
+                "price",
+                "currency",
+                "product_url",
+                "availability"
+              ],
+              "type": "object"
+            },
+            "type": "array"
           },
           "width": {
             "anyOf": [
