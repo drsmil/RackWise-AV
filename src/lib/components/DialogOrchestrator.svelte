@@ -13,6 +13,7 @@
   import CleanupDialog from "$lib/components/CleanupDialog.svelte";
   import CleanupPromptDialog from "$lib/components/CleanupPromptDialog.svelte";
   import ExportDialog from "$lib/components/ExportDialog.svelte";
+  import BillOfMaterialsDialog from "$lib/components/BillOfMaterialsDialog.svelte";
   import ShareDialog from "$lib/components/ShareDialog.svelte";
   import LayoutYamlPanel from "$lib/components/LayoutYamlPanel.svelte";
   import Dialog from "$lib/components/Dialog.svelte";
@@ -99,6 +100,9 @@
   let addDeviceFormOpen = $derived(dialogStore.isOpen("addDevice"));
   let confirmDeleteOpen = $derived(dialogStore.isOpen("confirmDelete"));
   let exportDialogOpen = $derived(dialogStore.isOpen("export"));
+  let billOfMaterialsDialogOpen = $derived(
+    dialogStore.isOpen("billOfMaterials"),
+  );
   let shareDialogOpen = $derived(dialogStore.isOpen("share"));
   let yamlEditorDialogOpen = $derived(dialogStore.isOpen("yamlEditor"));
   let helpPanelOpen = $derived(dialogStore.isOpen("help"));
@@ -851,6 +855,12 @@
   qrCodeDataUrl={exportQrCodeDataUrl}
   onexport={(e) => handleExportSubmit(e.detail)}
   oncancel={handleExportCancel}
+/>
+
+<BillOfMaterialsDialog
+  open={billOfMaterialsDialogOpen}
+  layout={layoutStore.layout}
+  onclose={() => dialogStore.close()}
 />
 
 <ShareDialog
