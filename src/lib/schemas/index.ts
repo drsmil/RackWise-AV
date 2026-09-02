@@ -474,6 +474,8 @@ export const DeviceTypeSchema = z
     manufacturer: z.string().max(100).optional(),
     model: z.string().max(100).optional(),
     part_number: z.string().max(100).optional(),
+    upc: z.string().max(32).optional(),
+    catalog_price_status: z.enum(["pending", "verified"]).optional(),
 
     // --- Physical Properties ---
     u_height: z
@@ -659,6 +661,8 @@ const RackSchemaInput = z
     manufacturer: z.string().max(100).optional(),
     model: z.string().max(100).optional(),
     part_number: z.string().max(100).optional(),
+    upc: z.string().max(32).optional(),
+    catalog_price_status: z.enum(["pending", "verified"]).optional(),
     height: z
       .number()
       .int()
