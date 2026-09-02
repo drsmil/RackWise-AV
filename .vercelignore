@@ -1,0 +1,4 @@
+# The bundled API targets Bun and Cloudflare Workers. RackWise AV is deployed
+# to Vercel as a static Vite application, so this source must not be detected
+# as Vercel Functions.
+api/
