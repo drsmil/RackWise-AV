@@ -1,140 +1,59 @@
-<p align="center">
-  <a href="https://count.racku.la">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="assets/Rackula-lockup-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="assets/Rackula-lockup-light.svg">
-      <img src="assets/Rackula-lockup-dark.svg" alt="Rackula" width="420">
-    </picture>
-  </a>
-</p>
+# RackWise AV
 
-<p align="center">
-  <strong>Drag-and-drop rack layout designer</strong><br>
-  Plan your rack, move some pixels, save your shoulders.
-</p>
+Design it. Validate it. Build it.
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-bd93f9?style=for-the-badge&labelColor=44475a" alt="License: MIT"></a>
-  <img src="https://img.shields.io/github/v/release/RackulaLives/Rackula?style=for-the-badge&labelColor=44475a&color=ff79c6" alt="GitHub Release">
-  <a href="https://github.com/RackulaLives/Rackula/pkgs/container/Rackula"><img src="https://img.shields.io/github/v/release/RackulaLives/Rackula?style=for-the-badge&labelColor=44475a&color=50fa7b&label=docker&logo=docker&logoColor=white" alt="Docker"></a>
-  <img src="https://img.shields.io/badge/versioning-CalVer-ff79c6?style=for-the-badge&labelColor=44475a" alt="CalVer">
-  <a href="https://github.com/RackulaLives/Rackula/actions/workflows/test.yml"><img src="https://img.shields.io/github/actions/workflow/status/RackulaLives/Rackula/test.yml?style=for-the-badge&labelColor=44475a" alt="CI"></a>
-</p>
+RackWise AV is a dimension-aware media-rack configurator for AV customers, sales teams, warehouse teams, and installers. It combines a visual rack layout workspace with compatibility checks and a future bill of materials containing prices, SKUs, and distributor links.
 
-<p align="center">
-  <img src="assets/Rackula-hero-drac.gif" alt="Rackula demo" width="500">
-</p>
+The project currently uses the proven Rackula layout engine as its foundation. RackWise AV is being developed as a separate product focused on professional AV equipment and the product ecosystems sold through Snap One and ADI.
 
-<p align="center">
-  <img src="assets/screenshot-dracs-rack.png" alt="Rackula showing a rack with server and network devices" width="500">
-</p>
+## Current capabilities
 
----
+- Drag-and-drop front and rear rack layouts
+- Whole-U rail placement with carrier support for smaller devices
+- Rack-width and placement compatibility checks
+- Multiple racks and bayed AV rack groups
+- Device images, labels, ports, cable connections, and annotations
+- Undo and redo
+- Browser-local projects and optional API persistence
+- PNG, PDF, SVG, YAML, ZIP, URL, and QR sharing workflows
+- Typed AV connectors including HDMI, SDI, XLR, Dante, AVB, and RS-232
+- Commercial catalog metadata for dimensions, power, heat, accessories, distributor offers, pricing, availability, and purchase links
 
-## Features
+## Product direction
 
-- Drag and drop devices into your rack from a real hardware library
-- Real device images from the NetBox devicetype-library, not grey boxes
-- Export layouts to PNG, PDF, or SVG for documentation and change requests
-- Share layouts via URL or QR code, no file attachments needed
-- Mobile-friendly interface for field use
-- Bayed rack grouping for AV installs and multi-cabinet deployments
-- Optional persistent storage with API-backed layout sync
-- Self-hostable via Docker, Proxmox LXC, or bare metal
-- Optional auth with local accounts or OIDC for shared deployments
+The RackWise AV catalog will prioritize:
 
-## Who It's For
+- Strong media racks
+- Legion media racks
+- Middle Atlantic media racks
+- Rack shelves, panels, power distribution, cooling, and cable management
+- Network, surveillance, control, audio, and video equipment
+- Snap One Partner Store and ADI Global Distribution product references
 
-| Audience | Use Case |
-| --- | --- |
-| **Homelabbers** | Plan your server rack before you rack it. Move pixels, not 4U servers. |
-| **AV Technicians** | Bayed rack support for audio installs, map out amp racks, patch bays, and processor chains. |
-| **Network Engineers** | Document and plan switch/router topologies. Export for runbooks and change requests. |
-| **Data Centre Teams** | Layout planning for colo cages and enterprise cabinets. Share via URL with your team. |
-| **Educators & Students** | Teach networking and infrastructure concepts with a visual, hands-on tool. No licence keys, no gatekeeping. |
+Unverified prices and product-page links must not be committed as real catalog data. Demo records must be clearly identified until their source is verified.
 
-## Why Though?
-
-You might ask, why should I make an imaginary rack like some sort of IT cosplay? And to that I would say, "fine then! don't! SCRAM!" but also, consider:
-
-- **Plan your layouts** before you build them. It's a lot easier to move your mouse than that 4U server full of hard drives. Your shoulder will thank you.
-- **Document existing layouts** so you know what is where.
-- **Because you can**
-
-## How Racks Work
-
-Racks are measured in rack units, written U. One U is 1.75 inches of vertical space, and a common full-height rack is 42U. Rackula models racks in whole U: a device occupies a whole number of units and mounts at a whole-U boundary, the same way real rails register equipment under the EIA-310 standard. If something sits at U5, it is really at U5, not floating part of a unit above it.
-
-Gear smaller than 1U, like half-height brackets or side-by-side half-width pairs, does not bolt to the rails on its own. It rides inside a 1U carrier (a bracket, tray, or shelf) that takes up one whole U and holds the smaller devices. The carrier registers to the rails, and the small devices register to the carrier.
-
-## Get Started
-
-### Use it right now
-
-**[count.racku.la](https://count.racku.la)** no account, no install, just racks.
-
-### Self-host with Docker
-
-This is a quick run of the client-side only frontend (no persistence across browser sessions):
+## Development
 
 ```bash
-docker run -d -p 8080:8080 ghcr.io/rackulalives/rackula:latest
+npm install
+npm run dev
 ```
 
-Or with Docker Compose:
+Quality checks:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/RackulaLives/Rackula/main/deploy/docker-compose.persist.yml -o docker-compose.yml
-mkdir -p data && sudo chown 1001:1001 data
-docker compose up -d
+npm run check
+npm run lint
+npm run test:run
+npm run build
 ```
 
-Open `http://localhost:8080` and get after it.
+## Compatibility strategy
 
-### Build from Source
+RackWise AV keeps the existing Rackula storage keys and layout file format during the initial transition. This allows established layouts to continue loading while the commercial AV data model is added incrementally.
 
-```bash
-git clone https://github.com/RackulaLives/Rackula.git
-cd Rackula && npm install && npm run build
-```
+## License and attribution
 
-Serve the `dist/` folder however you like. It's just files.
+RackWise AV is based on Rackula, created by Gareth Evans and contributors. The original project is available at [RackulaLives/Rackula](https://github.com/RackulaLives/Rackula).
 
-### Deploy on Proxmox (LXC)
-
-> **Note:** LXC is currently in pre-release. See the [Self-Hosting Guide](docs/deployment/SELF-HOSTING.md) for details and manual install instructions.
-
-### Security & Auth
-
-For production deployments, configure API security and authentication:
-
-```bash
-# Generate secrets
-openssl rand -hex 32  # API write token
-openssl rand -hex 32  # Session secret (if using auth)
-```
-
-Set `CORS_ORIGIN`, `RACKULA_API_WRITE_TOKEN`, and optionally `RACKULA_AUTH_MODE` (`none`, `local`, or `oidc`) in your `.env` file.
-
-See the [Self-Hosting Guide](docs/deployment/SELF-HOSTING.md) for full configuration details including auth modes, env vars, and TLS setup.
-
-## Built With Claude
-
-This project was built using AI-assisted development with Claude. I told it what to build and then said "no, not like that" a lot. The AI did a lot of typing. Commits with substantial AI contributions are marked with `Co-authored-by` tags because we're not going to pretend otherwise.
-
-## Documentation
-
-- [Architecture Overview](docs/ARCHITECTURE.md)
-- [Technical Spec](docs/reference/SPEC.md)
-- [Self-Hosting Guide](docs/deployment/SELF-HOSTING.md)
-- [Changelog](CHANGELOG.md)
-- [Contributing Guide](CONTRIBUTING.md)
-- [Discussions](https://github.com/RackulaLives/Rackula/discussions)
-
-## Acknowledgements
-
-Built for the [r/homelab](https://reddit.com/r/homelab) and [r/selfhosted](https://reddit.com/r/selfhosted) communities. Colours from [Dracula Theme](https://draculatheme.com/). Device data from [NetBox devicetype-library](https://github.com/netbox-community/devicetype-library). See [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md) for full credits.
-
-## Licence
-
-[MIT](LICENSE) Copyright &copy; 2025-2026 Gareth Evans
+The Rackula foundation is distributed under the MIT License. The original copyright notice and license are preserved in [LICENSE](LICENSE). Third-party credits are preserved in [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md).

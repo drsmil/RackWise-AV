@@ -60,7 +60,7 @@
         width="48"
         height="48"
       />
-      <h1>Rackula</h1>
+      <h1>RackWise AV</h1>
       <p class="login-subtitle">Sign in to continue</p>
     </div>
 

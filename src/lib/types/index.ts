@@ -328,6 +328,31 @@ export interface DeviceLink {
   url: string;
 }
 
+/** Distributor identifiers used by the RackWise AV commercial catalog. */
+export type CatalogVendor = "snap-one" | "adi" | "other";
+
+/** Distributor stock state captured when an offer was last verified. */
+export type CatalogAvailability =
+  "in-stock" | "limited" | "out-of-stock" | "unknown";
+
+/** A purchasable offer for one device type from a specific distributor. */
+export interface VendorOffer {
+  /** Distributor that owns the product listing. */
+  vendor: CatalogVendor;
+  /** Distributor-specific SKU when it differs from part_number. */
+  vendor_sku?: string;
+  /** Unit price in currency, or null when the price is not verified. */
+  price: number | null;
+  /** RackWise AV currently targets United States distributor catalogs. */
+  currency: "USD";
+  /** Verified HTTPS product or distributor URL. */
+  product_url: string;
+  /** Stock state at last verification. */
+  availability: CatalogAvailability;
+  /** ISO timestamp for the source check, or null for unverified demo data. */
+  last_verified_at?: string | null;
+}
+
 // =============================================================================
 // Container Slot Types (v0.6.0)
 // =============================================================================
@@ -475,6 +500,20 @@ export interface DeviceType {
   weight_unit?: WeightUnit;
   /** Airflow direction */
   airflow?: Airflow;
+  /** Physical chassis depth in millimetres. */
+  depth_mm?: number;
+  /** Physical chassis width in millimetres. */
+  width_mm?: number;
+  /** Additional rear space required for cabling in millimetres. */
+  rear_clearance_mm?: number;
+  /** Typical or maximum power draw used for rack estimates. */
+  power_draw_watts?: number;
+  /** Heat output used for ventilation estimates. */
+  heat_output_btu?: number;
+  /** Whether the manufacturer or catalog recommends ventilation clearance. */
+  requires_ventilation?: boolean;
+  /** Maximum supported load for shelves and carriers, in kilograms. */
+  max_load_kg?: number;
 
   // --- Image Flags ---
   /** Front image exists */
@@ -501,6 +540,10 @@ export interface DeviceType {
   asset_tag?: string;
   /** External links */
   links?: DeviceLink[];
+  /** Distributor offers used by pricing and bill-of-materials features. */
+  vendor_offers?: VendorOffer[];
+  /** Device slugs required to install this product. */
+  required_accessories?: string[];
   /** User-defined custom fields */
   custom_fields?: Record<string, unknown>;
 
@@ -622,6 +665,12 @@ export interface Rack {
   id: string;
   /** Display name */
   name: string;
+  /** Manufacturer for a catalog-backed rack. */
+  manufacturer?: string;
+  /** Manufacturer model name. */
+  model?: string;
+  /** Manufacturer or distributor part number. */
+  part_number?: string;
   /** Height in rack units (1-100U) */
   height: number;
   /** Width in inches (10, 19, or 23) */
@@ -644,6 +693,10 @@ export interface Rack {
   depth_mm?: number;
   /** Base weight of the empty rack, in kilograms (default: 0) */
   base_weight?: number;
+  /** Maximum installed equipment load, in kilograms. */
+  max_load_kg?: number;
+  /** Distributor offers used by pricing and bill-of-materials features. */
+  vendor_offers?: VendorOffer[];
   /** Current view mode - runtime only, not persisted */
   view?: RackView;
 }

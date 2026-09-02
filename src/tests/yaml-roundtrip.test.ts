@@ -16,6 +16,63 @@ import {
 } from "./factories";
 
 describe("YAML layout round-trip", () => {
+  it("preserves RackWise AV commercial catalog metadata", async () => {
+    const deviceType: DeviceType = {
+      ...createTestDeviceType({ slug: "commercial-device" }),
+      depth_mm: 381,
+      rear_clearance_mm: 76.2,
+      power_draw_watts: 125,
+      required_accessories: ["rack-screws-10-32"],
+      vendor_offers: [
+        {
+          vendor: "snap-one",
+          vendor_sku: "DEMO-SKU",
+          price: 149.99,
+          currency: "USD",
+          product_url: "https://www.snaponepartnerstore.com/",
+          availability: "unknown",
+          last_verified_at: "2026-09-01T12:00:00.000Z",
+        },
+      ],
+    };
+    const rack = {
+      ...createTestRack({ id: "commercial-rack" }),
+      manufacturer: "Middle Atlantic",
+      model: "Demo Rack",
+      part_number: "DEMO-RACK",
+      max_load_kg: 340,
+      vendor_offers: [
+        {
+          vendor: "adi" as const,
+          vendor_sku: "DEMO-RACK",
+          price: null,
+          currency: "USD" as const,
+          product_url: "https://www.adiglobaldistribution.us/",
+          availability: "unknown" as const,
+          last_verified_at: null,
+        },
+      ],
+    } as Rack;
+    const layout = createTestLayout({
+      racks: [rack],
+      device_types: [deviceType],
+    });
+
+    const yaml = await serializeLayoutToYaml(layout);
+    const restored = await parseLayoutYaml(yaml);
+    const restoredDevice = restored.device_types.find(
+      (device) => device.slug === deviceType.slug,
+    );
+
+    expect(restoredDevice?.vendor_offers?.[0]?.vendor_sku).toBe("DEMO-SKU");
+    expect(restoredDevice?.vendor_offers?.[0]?.price).toBe(149.99);
+    expect(restoredDevice?.depth_mm).toBe(381);
+    expect(restoredDevice?.required_accessories?.[0]).toBe("rack-screws-10-32");
+    expect(restored.racks[0]?.manufacturer).toBe("Middle Atlantic");
+    expect(restored.racks[0]?.max_load_kg).toBe(340);
+    expect(restored.racks[0]?.vendor_offers?.[0]?.vendor_sku).toBe("DEMO-RACK");
+  });
+
   it("preserves auto_created for an auto-synthesized carrier placement", async () => {
     const carrierType = createTestDeviceType({
       slug: "carrier-device",

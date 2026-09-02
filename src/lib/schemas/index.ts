@@ -382,6 +382,32 @@ export const DeviceLinkSchema = z
   })
   .passthrough();
 
+export const CatalogVendorSchema = z.enum(["snap-one", "adi", "other"]);
+
+export const CatalogAvailabilitySchema = z.enum([
+  "in-stock",
+  "limited",
+  "out-of-stock",
+  "unknown",
+]);
+
+export const VendorOfferSchema = z
+  .object({
+    vendor: CatalogVendorSchema,
+    vendor_sku: z.string().min(1).max(100).optional(),
+    price: z.number().nonnegative().finite().nullable(),
+    currency: z.literal("USD"),
+    product_url: z
+      .string()
+      .url()
+      .refine((url) => url.startsWith("https://"), {
+        message: "Purchase link must use HTTPS",
+      }),
+    availability: CatalogAvailabilitySchema,
+    last_verified_at: z.string().datetime().nullable().optional(),
+  })
+  .passthrough();
+
 // ============================================================================
 // PlacedPort Schema
 // ============================================================================
@@ -462,6 +488,13 @@ export const DeviceTypeSchema = z
     weight: z.number().positive().optional(),
     weight_unit: WeightUnitSchema.optional(),
     airflow: AirflowSchema.optional(),
+    depth_mm: z.number().positive().finite().optional(),
+    width_mm: z.number().positive().finite().optional(),
+    rear_clearance_mm: z.number().nonnegative().finite().optional(),
+    power_draw_watts: z.number().nonnegative().finite().optional(),
+    heat_output_btu: z.number().nonnegative().finite().optional(),
+    requires_ventilation: z.boolean().optional(),
+    max_load_kg: z.number().positive().finite().optional(),
 
     // --- Image Flags ---
     front_image: z.boolean().optional(),
@@ -479,6 +512,8 @@ export const DeviceTypeSchema = z
     serial_number: z.string().max(100).optional(),
     asset_tag: z.string().max(100).optional(),
     links: z.array(DeviceLinkSchema).optional(),
+    vendor_offers: z.array(VendorOfferSchema).optional(),
+    required_accessories: z.array(SlugSchema).optional(),
     custom_fields: z.record(z.string(), z.any()).optional(),
 
     // --- Component Arrays ---
@@ -621,6 +656,9 @@ const RackSchemaInput = z
       .string()
       .min(1, "Name is required")
       .max(100, "Name must be 100 characters or less"),
+    manufacturer: z.string().max(100).optional(),
+    model: z.string().max(100).optional(),
+    part_number: z.string().max(100).optional(),
     height: z
       .number()
       .int()
@@ -645,6 +683,8 @@ const RackSchemaInput = z
       .nonnegative()
       .finite()
       .default(DEFAULT_RACK_BASE_WEIGHT),
+    max_load_kg: z.number().positive().finite().optional(),
+    vendor_offers: z.array(VendorOfferSchema).optional(),
   })
   .passthrough();
 
@@ -659,6 +699,9 @@ export const RackSchema = z
       .string()
       .min(1, "Name is required")
       .max(100, "Name must be 100 characters or less"),
+    manufacturer: z.string().max(100).optional(),
+    model: z.string().max(100).optional(),
+    part_number: z.string().max(100).optional(),
     height: z
       .number()
       .int()
@@ -683,6 +726,8 @@ export const RackSchema = z
       .nonnegative()
       .finite()
       .default(DEFAULT_RACK_BASE_WEIGHT),
+    max_load_kg: z.number().positive().finite().optional(),
+    vendor_offers: z.array(VendorOfferSchema).optional(),
   })
   .passthrough();
 
@@ -1138,6 +1183,9 @@ export type PowerOutlet = z.infer<typeof PowerOutletSchema>;
 export type DeviceBay = z.infer<typeof DeviceBaySchema>;
 export type InventoryItem = z.infer<typeof InventoryItemSchema>;
 export type DeviceLink = z.infer<typeof DeviceLinkSchema>;
+export type CatalogVendor = z.infer<typeof CatalogVendorSchema>;
+export type CatalogAvailability = z.infer<typeof CatalogAvailabilitySchema>;
+export type VendorOffer = z.infer<typeof VendorOfferSchema>;
 export type PlacedPortZod = z.infer<typeof PlacedPortSchema>;
 export type ConnectionZod = z.infer<typeof ConnectionSchema>;
 export type DeviceTypeZod = z.infer<typeof DeviceTypeSchema>;

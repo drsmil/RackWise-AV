@@ -65,6 +65,12 @@
   --dracula-red: #ff5555;
   --dracula-yellow: #f1fa8c;
 
+  /* RackWise AV brand accents */
+  --rackwise-blue: #2f8cff;
+  --rackwise-cyan: #38bdf8;
+  --rackwise-blue-muted: #146c94;
+  --rackwise-accent: var(--rackwise-cyan);
+
   /* Color Palette - Blue (Primary) */
   --blue-500: #3b82f6;
 
@@ -212,23 +218,17 @@
   ); /* BRAND.md v0.6.0: pink for focus */
 
   /* Interactive/Brand */
-  --colour-primary: var(--dracula-cyan);
-  --colour-selection: var(
-    --dracula-pink
-  ); /* BRAND.md v0.6.0: pink (not purple) */
-  --colour-selection-hover: var(--dracula-pink);
-  --colour-focus-ring: var(
-    --dracula-pink
-  ); /* BRAND.md v0.6.0: pink for focus */
+  --colour-primary: var(--rackwise-cyan);
+  --colour-selection: var(--rackwise-blue);
+  --colour-selection-hover: var(--rackwise-cyan);
+  --colour-focus-ring: var(--rackwise-cyan);
   --colour-brand-on-light: #644ac9; /* Purple for brand text on a fixed white surface (e.g. the share QR panel). Darker than --dracula-purple so it clears WCAG AA 4.5:1 on white; --dracula-purple only reaches 2.41:1 there. */
 
   /* Buttons */
   --colour-button-bg: var(--dracula-bg-light);
   --colour-button-hover: var(--dracula-bg-lighter);
-  --colour-button-primary: var(
-    --dracula-pink-muted
-  ); /* Softer pink for CTA background */
-  --colour-button-primary-hover: var(--dracula-pink); /* Bright pink on hover */
+  --colour-button-primary: var(--rackwise-blue-muted);
+  --colour-button-primary-hover: var(--rackwise-blue);
   --colour-button-destructive: #a84a4a; /* Muted red for destructive actions (BRAND.md power color) */
   --colour-button-destructive-hover: var(
     --dracula-red

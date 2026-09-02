@@ -176,7 +176,7 @@
       {:else if qrDataUrl}
         <div class="qr-container" data-testid="qr-container">
           <p class="qr-scan-label">
-            Scan to open in <span class="brand">Rackula</span>
+            Scan to open in <span class="brand">RackWise AV</span>
           </p>
           <img src={qrDataUrl} alt="QR code for layout" class="qr-image" />
         </div>

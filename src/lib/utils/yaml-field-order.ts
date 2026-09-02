@@ -44,6 +44,17 @@ function orderDeviceTypeFields(dt: DeviceType): Record<string, unknown> {
   if (dt.weight !== undefined) ordered.weight = dt.weight;
   if (dt.weight_unit !== undefined) ordered.weight_unit = dt.weight_unit;
   if (dt.airflow !== undefined) ordered.airflow = dt.airflow;
+  if (dt.depth_mm !== undefined) ordered.depth_mm = dt.depth_mm;
+  if (dt.width_mm !== undefined) ordered.width_mm = dt.width_mm;
+  if (dt.rear_clearance_mm !== undefined)
+    ordered.rear_clearance_mm = dt.rear_clearance_mm;
+  if (dt.power_draw_watts !== undefined)
+    ordered.power_draw_watts = dt.power_draw_watts;
+  if (dt.heat_output_btu !== undefined)
+    ordered.heat_output_btu = dt.heat_output_btu;
+  if (dt.requires_ventilation !== undefined)
+    ordered.requires_ventilation = dt.requires_ventilation;
+  if (dt.max_load_kg !== undefined) ordered.max_load_kg = dt.max_load_kg;
 
   // --- Image Flags ---
   if (dt.front_image !== undefined) ordered.front_image = dt.front_image;
@@ -59,6 +70,13 @@ function orderDeviceTypeFields(dt: DeviceType): Record<string, unknown> {
   if (dt.serial_number !== undefined) ordered.serial_number = dt.serial_number;
   if (dt.asset_tag !== undefined) ordered.asset_tag = dt.asset_tag;
   if (dt.links !== undefined && dt.links.length > 0) ordered.links = dt.links;
+  if (dt.vendor_offers !== undefined && dt.vendor_offers.length > 0)
+    ordered.vendor_offers = dt.vendor_offers;
+  if (
+    dt.required_accessories !== undefined &&
+    dt.required_accessories.length > 0
+  )
+    ordered.required_accessories = dt.required_accessories;
   if (dt.custom_fields !== undefined) ordered.custom_fields = dt.custom_fields;
 
   // --- Component Arrays ---
@@ -154,10 +172,16 @@ function orderRackFields(rack: Rack): Record<string, unknown> {
 
   if (rack.id !== undefined) ordered.id = rack.id;
   ordered.name = rack.name;
+  if (rack.manufacturer !== undefined) ordered.manufacturer = rack.manufacturer;
+  if (rack.model !== undefined) ordered.model = rack.model;
+  if (rack.part_number !== undefined) ordered.part_number = rack.part_number;
   ordered.height = rack.height;
   ordered.width = rack.width;
   if (rack.depth_mm !== undefined) ordered.depth_mm = rack.depth_mm;
   if (rack.base_weight !== undefined) ordered.base_weight = rack.base_weight;
+  if (rack.max_load_kg !== undefined) ordered.max_load_kg = rack.max_load_kg;
+  if (rack.vendor_offers !== undefined && rack.vendor_offers.length > 0)
+    ordered.vendor_offers = rack.vendor_offers;
   ordered.desc_units = rack.desc_units;
   // Persist the rear-view toggle; without it the schema default (true) wins on reload.
   ordered.show_rear = rack.show_rear;
@@ -284,6 +308,13 @@ const KNOWN_DEVICE_TYPE_KEYS = new Set<string>([
   "weight",
   "weight_unit",
   "airflow",
+  "depth_mm",
+  "width_mm",
+  "rear_clearance_mm",
+  "power_draw_watts",
+  "heat_output_btu",
+  "requires_ventilation",
+  "max_load_kg",
   "front_image",
   "rear_image",
   "colour",
@@ -293,6 +324,8 @@ const KNOWN_DEVICE_TYPE_KEYS = new Set<string>([
   "serial_number",
   "asset_tag",
   "links",
+  "vendor_offers",
+  "required_accessories",
   "custom_fields",
   "interfaces",
   "power_ports",
@@ -327,10 +360,15 @@ const KNOWN_PLACED_DEVICE_KEYS = new Set<string>([
 const KNOWN_RACK_KEYS = new Set<string>([
   "id",
   "name",
+  "manufacturer",
+  "model",
+  "part_number",
   "height",
   "width",
   "depth_mm",
   "base_weight",
+  "max_load_kg",
+  "vendor_offers",
   "desc_units",
   "show_rear",
   "form_factor",

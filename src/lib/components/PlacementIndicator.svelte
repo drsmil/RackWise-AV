@@ -102,7 +102,7 @@
   }
 
   .indicator-text strong {
-    color: var(--colour-selection, #ff79c6);
+    color: var(--colour-primary, #38bdf8);
     font-weight: 600;
   }
 

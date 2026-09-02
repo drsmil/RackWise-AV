@@ -23,15 +23,14 @@ import {
   LOGO_VIEWBOX,
   LOGO_SQUARE_VIEWBOX,
 } from "../src/lib/components/logo-geometry";
-import { draculaColors, alucardColors } from "../src/lib/utils/contrast";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BRAND = join(ROOT, "static", "brand");
 const STATIC = join(ROOT, "static");
 
-const DRACULA_PURPLE = draculaColors.purple;
-const ALUCARD_PURPLE = alucardColors.purple;
-const DRACULA_BG = draculaColors.bg;
+const RACKWISE_BLUE = "#38BDF8";
+const RACKWISE_BLUE_DARK = "#0369A1";
+const RACKWISE_BG = "#0B111A";
 
 const PNG_SIZES = [16, 32, 48, 64, 128, 192, 256, 512];
 // Legacy /favicon.ico fallback only; modern browsers use the SVG/PNG links.
@@ -54,21 +53,21 @@ function markSvg(viewBox: string, fill: string, size?: number): string {
 
 async function writeSvgs(): Promise<void> {
   const svgs: Array<[string, string]> = [
-    [join(BRAND, "logo-mark.svg"), markSvg(LOGO_VIEWBOX, DRACULA_PURPLE)],
+    [join(BRAND, "logo-mark.svg"), markSvg(LOGO_VIEWBOX, RACKWISE_BLUE)],
     [
       join(BRAND, "logo-mark-alucard.svg"),
-      markSvg(LOGO_VIEWBOX, ALUCARD_PURPLE),
+      markSvg(LOGO_VIEWBOX, RACKWISE_BLUE_DARK),
     ],
     [join(BRAND, "logo-mark-mono-black.svg"), markSvg(LOGO_VIEWBOX, "#000000")],
     [join(BRAND, "logo-mark-mono-white.svg"), markSvg(LOGO_VIEWBOX, "#FFFFFF")],
     [
       join(BRAND, "logo-mark-square.svg"),
-      markSvg(LOGO_SQUARE_VIEWBOX, DRACULA_PURPLE),
+      markSvg(LOGO_SQUARE_VIEWBOX, RACKWISE_BLUE),
     ],
-    [join(STATIC, "favicon.svg"), markSvg(LOGO_SQUARE_VIEWBOX, DRACULA_PURPLE)],
+    [join(STATIC, "favicon.svg"), markSvg(LOGO_SQUARE_VIEWBOX, RACKWISE_BLUE)],
     [
       join(STATIC, "favicon-light.svg"),
-      markSvg(LOGO_SQUARE_VIEWBOX, ALUCARD_PURPLE),
+      markSvg(LOGO_SQUARE_VIEWBOX, RACKWISE_BLUE_DARK),
     ],
   ];
   for (const [path, content] of svgs) {
@@ -86,23 +85,23 @@ function squarePng(fill: string, size: number): Promise<Buffer> {
 async function writePngs(): Promise<void> {
   for (const size of PNG_SIZES) {
     const path = join(BRAND, `logo-mark-${size}.png`);
-    await writeFile(path, await squarePng(DRACULA_PURPLE, size));
+    await writeFile(path, await squarePng(RACKWISE_BLUE, size));
     console.log(`wrote ${path}`);
   }
 
   await writeFile(
     join(STATIC, "favicon.png"),
-    await squarePng(DRACULA_PURPLE, 32),
+    await squarePng(RACKWISE_BLUE, 32),
   );
   await writeFile(
     join(STATIC, "favicon-light.png"),
-    await squarePng(ALUCARD_PURPLE, 32),
+    await squarePng(RACKWISE_BLUE_DARK, 32),
   );
   console.log("wrote favicon.png, favicon-light.png");
 
-  const mark = await squarePng(DRACULA_PURPLE, 132);
+  const mark = await squarePng(RACKWISE_BLUE, 132);
   const touchIcon = await sharp({
-    create: { width: 180, height: 180, channels: 4, background: DRACULA_BG },
+    create: { width: 180, height: 180, channels: 4, background: RACKWISE_BG },
   })
     .composite([{ input: mark, top: 24, left: 24 }])
     .png()
@@ -123,7 +122,7 @@ async function writeIco(): Promise<void> {
     const inputs: string[] = [];
     for (const size of ICO_SIZES) {
       const path = join(tmp, `${size}.png`);
-      await writeFile(path, await squarePng(DRACULA_PURPLE, size));
+      await writeFile(path, await squarePng(RACKWISE_BLUE, size));
       inputs.push(path);
     }
     const icoPath = join(STATIC, "favicon.ico");

@@ -56,7 +56,7 @@ describe("upgrade corpus: YAML ingress via parseLayoutYaml", () => {
     if (spec.reject) {
       it(`${name}: is rejected by the version gate`, async () => {
         await expect(parseLayoutYaml(yaml)).rejects.toThrow(
-          /newer version of Rackula/,
+          /newer version of RackWise AV/,
         );
       });
       continue;
