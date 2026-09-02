@@ -478,6 +478,10 @@ export interface DeviceType {
   model?: string;
   /** Part number / SKU */
   part_number?: string;
+  /** UPC retained from the distributor catalog for purchase identification. */
+  upc?: string;
+  /** Whether commercial price data has been verified for this device. */
+  catalog_price_status?: "pending" | "verified";
 
   // --- Physical Properties ---
   /** Height in rack units (0.5-42U) */
@@ -671,6 +675,10 @@ export interface Rack {
   model?: string;
   /** Manufacturer or distributor part number. */
   part_number?: string;
+  /** UPC retained from the distributor catalog for purchase identification. */
+  upc?: string;
+  /** Whether commercial price data has been verified for this rack. */
+  catalog_price_status?: "pending" | "verified";
   /** Height in rack units (1-100U) */
   height: number;
   /** Width in inches (10, 19, or 23) */
