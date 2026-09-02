@@ -28,6 +28,7 @@ export interface BomLine {
   manufacturer?: string;
   model?: string;
   partNumber?: string;
+  upc?: string;
   quantity: number;
   /** The selected distributor listing, if the catalog identifies one. */
   offer?: VendorOffer;
@@ -143,6 +144,7 @@ interface AddLineInput {
   manufacturer?: string;
   model?: string;
   partNumber?: string;
+  upc?: string;
   offers?: VendorOffer[];
   quantity: number;
   requiredBy?: string;
@@ -168,6 +170,7 @@ function addLine(lines: Map<string, BomLine>, input: AddLineInput): void {
     manufacturer: input.manufacturer,
     model: input.model,
     partNumber: input.partNumber,
+    upc: input.upc,
     quantity: input.quantity,
     offer,
     status,
@@ -205,6 +208,7 @@ function addDeviceAndAccessories(
     manufacturer: type.manufacturer,
     model: type.model,
     partNumber: type.part_number,
+    upc: type.upc,
     offers: type.vendor_offers,
     quantity,
     requiredBy,
@@ -238,6 +242,7 @@ export function buildBillOfMaterials(layout: Layout): BillOfMaterials {
       manufacturer: rack.manufacturer,
       model: rack.model,
       partNumber: rack.part_number,
+      upc: rack.upc,
       offers: rack.vendor_offers,
       quantity: 1,
     });
@@ -302,6 +307,7 @@ export function billOfMaterialsToCsv(bom: BillOfMaterials): string {
       "Manufacturer",
       "Model",
       "Part Number",
+      "UPC",
       "Quantity",
       "Distributor",
       "Distributor SKU",
@@ -317,6 +323,7 @@ export function billOfMaterialsToCsv(bom: BillOfMaterials): string {
       line.manufacturer,
       line.model,
       line.partNumber,
+      line.upc,
       line.quantity,
       line.offer?.vendor,
       line.offer?.vendor_sku,
