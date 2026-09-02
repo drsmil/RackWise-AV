@@ -42,6 +42,7 @@ export type ActionId =
   | "new-custom-device"
   | "view-yaml"
   | "export"
+  | "bill-of-materials"
   | "share"
   | "undo"
   | "redo"
@@ -430,6 +431,15 @@ export const ACTION_REGISTRY: ActionDefinition[] = [
     helpGroup: "File",
     appMenuGroup: "output",
     keywords: ["png", "svg", "pdf", "image"],
+  },
+  {
+    id: "bill-of-materials",
+    label: "View bill of materials",
+    scope: "global",
+    bindings: [],
+    enabledWhen: (ctx) => ctx.hasRacks,
+    appMenuGroup: "output",
+    keywords: ["bom", "quote", "parts", "pricing", "purchase", "csv"],
   },
   {
     id: "share",

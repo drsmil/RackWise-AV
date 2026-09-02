@@ -16,6 +16,7 @@ export type DialogId =
   | "addDevice"
   | "confirmDelete"
   | "export"
+  | "billOfMaterials"
   | "share"
   | "help"
   | "settings"

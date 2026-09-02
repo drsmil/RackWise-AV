@@ -176,6 +176,7 @@ export function createActionDispatch(): ActionDispatch {
       runRestoreFromFile();
     },
     export: maybeExport,
+    "bill-of-materials": () => dialogStore.open("billOfMaterials"),
     share: handleShare,
     load: handleLoad,
     "view-yaml": handleOpenYamlEditor,
