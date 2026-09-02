@@ -20,6 +20,9 @@ on:
 
 jobs:
   claude-review:
+    # This imported workflow needs the Claude Code GitHub App installed on this
+    # repository. Keep it opt-in until RackWise AV is connected to that app.
+    # Set the repository variable CLAUDE_CODE_REVIEW_ENABLED to "true" to use it.
     # Optional: Filter by PR author
     # if: |
     #   github.event.pull_request.user.login == 'external-contributor' ||
@@ -28,7 +31,7 @@ jobs:
 
     # Skip drafts, Dependabot PRs, and fork PRs (no access to secrets/OIDC).
     if: >-
-      github.event.pull_request.draft != true && github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.head.repo.fork == false
+      vars.CLAUDE_CODE_REVIEW_ENABLED == 'true' && github.event.pull_request.draft != true && github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.head.repo.fork == false
 
     runs-on: ubuntu-latest
     timeout-minutes: 30
