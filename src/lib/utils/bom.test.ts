@@ -189,7 +189,7 @@ describe("buildBillOfMaterials", () => {
     );
 
     expect(billOfMaterialsToCsv(bom)).toContain(
-      'device,"Strong, Inc.",,,1,snap-one,SNAP-1,in-stock,125,125,https://www.snaponepartnerstore.com/demo,ready,',
+      'device,"Strong, Inc.",,,,1,snap-one,SNAP-1,in-stock,125,125,https://www.snaponepartnerstore.com/demo,ready,',
     );
   });
 });
