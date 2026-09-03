@@ -3,6 +3,7 @@ import { wattboxDevices } from "./wattbox";
 
 describe("WattBox brand pack", () => {
   it("contains only the selected UPS and power-strip records", () => {
+    // eslint-disable-next-line no-restricted-syntax -- The supplied WattBox import is a versioned 17-SKU contract.
     expect(wattboxDevices).toHaveLength(17);
     expect(wattboxDevices).toEqual(
       expect.arrayContaining([

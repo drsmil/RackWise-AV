@@ -26,6 +26,7 @@ describe("commercial catalog imports", () => {
       (item) => item.manufacturer === "WattBox",
     );
 
+    // eslint-disable-next-line no-restricted-syntax -- The supplied WattBox import is a versioned 17-SKU contract.
     expect(wattbox).toHaveLength(17);
     expect(wattbox.find((item) => item.sku === "WB-UPS-1500-8")).toMatchObject({
       upc: "842822034609",
