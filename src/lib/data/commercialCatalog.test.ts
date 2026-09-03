@@ -7,6 +7,8 @@ import {
 
 describe("commercial catalog imports", () => {
   it("retains every SKU supplied by the initial distributor exports", () => {
+    // The supplied spreadsheet exports are a versioned import contract.
+    // eslint-disable-next-line no-restricted-syntax -- Detect accidental loss during import regeneration.
     expect(commercialCatalogItems).toHaveLength(404);
     expect(new Set(commercialCatalogItems.map((item) => item.sku)).size).toBe(
       404,
