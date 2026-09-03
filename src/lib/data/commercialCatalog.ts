@@ -13,7 +13,7 @@ export interface CommercialCatalogItem {
   sku: string;
   upc: string;
   description: string;
-  manufacturer: "Araknis Networks" | "Legion" | "Strong";
+  manufacturer: "Araknis Networks" | "Legion" | "Strong" | "WattBox";
   kind: CommercialCatalogKind;
   /** No price is published until a distributor record is verified. */
   price: number | null;
@@ -37,12 +37,14 @@ import { importedRecordsPart1 } from "./commercialCatalog.part1";
 import { importedRecordsPart2 } from "./commercialCatalog.part2";
 import { importedRecordsPart3 } from "./commercialCatalog.part3";
 import { importedRecordsPart4 } from "./commercialCatalog.part4";
+import { wattboxCatalogRecords } from "./wattboxCatalog";
 
 const importedRecords = [
   ...importedRecordsPart1,
   ...importedRecordsPart2,
   ...importedRecordsPart3,
   ...importedRecordsPart4,
+  ...wattboxCatalogRecords,
 ] as const;
 
 export const commercialCatalogItems: CommercialCatalogItem[] =

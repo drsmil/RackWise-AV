@@ -48,6 +48,7 @@ import { beelinkDevices } from "./beelink";
 import { raspberryPiDevices } from "./raspberry-pi";
 import { zimaDevices } from "./zima";
 import { araknisDevices } from "./araknis";
+import { wattboxDevices } from "./wattbox";
 
 /**
  * Brand section data structure
@@ -128,6 +129,7 @@ const BRAND_PACK_REGISTRY: ReadonlyArray<
   },
   { id: "qnap", title: "QNAP", devices: qnapDevices, icon: "qnap" },
   // Power
+  { id: "wattbox", title: "WattBox", devices: wattboxDevices },
   { id: "apc", title: "APC", devices: apcDevices, icon: "schneiderelectric" },
   { id: "eaton", title: "Eaton", devices: eatonDevices, icon: "eaton" },
   { id: "vertiv", title: "Vertiv", devices: vertivDevices, icon: "vertiv" },
