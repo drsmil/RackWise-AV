@@ -47,6 +47,7 @@ import { intelDevices } from "./intel";
 import { beelinkDevices } from "./beelink";
 import { raspberryPiDevices } from "./raspberry-pi";
 import { zimaDevices } from "./zima";
+import { araknisDevices } from "./araknis";
 
 /**
  * Brand section data structure
@@ -77,6 +78,11 @@ const BRAND_PACK_REGISTRY: ReadonlyArray<
   Omit<BrandSection, "defaultExpanded">
 > = [
   // Network
+  {
+    id: "araknis",
+    title: "Araknis Networks",
+    devices: araknisDevices,
+  },
   {
     id: "ubiquiti",
     title: "Ubiquiti",
