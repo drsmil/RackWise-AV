@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 10486)
+Total output lines: 1494
+
 {
   "$description": "Beta. Generated from the Rackula Zod layout schema. Covers the structural shape of a saved layout but not cross-field rules expressed in Zod (.refine/.superRefine: referential integrity, carrier-first rail placement, slot fit) or the load-time .transform (legacy position migration, rack id generation, unknown-field preservation). Expect roughly 80 percent validation coverage; the Zod schema in src/lib/schemas/index.ts is authoritative.",
   "$id": "https://count.racku.la/schemas/rackula-layout.schema.json",
@@ -56,6 +59,13 @@
           },
           "asset_tag": {
             "maxLength": 100,
+            "type": "string"
+          },
+          "catalog_price_status": {
+            "enum": [
+              "pending",
+              "verified"
+            ],
             "type": "string"
           },
           "category": {
@@ -533,6 +543,10 @@
             "minimum": 0.5,
             "type": "number"
           },
+          "upc": {
+            "maxLength": 32,
+            "type": "string"
+          },
           "va_rating": {
             "exclusiveMinimum": 0,
             "maximum": 9007199254740991,
@@ -675,6 +689,13 @@
           "minimum": 0,
           "type": "number"
         },
+        "catalog_price_status": {
+          "enum": [
+            "pending",
+            "verified"
+          ],
+          "type": "string"
+        },
         "depth_mm": {
           "default": 1000,
           "exclusiveMinimum": 0,
@@ -703,70 +724,7 @@
                 "propertyNames": {
                   "type": "string"
                 },
-                "type": "object"
-              },
-              "device_bay": {
-                "type": "string"
-              },
-              "device_type": {
-                "maxLength": 100,
-                "minLength": 1,
-                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
-                "type": "string"
-              },
-              "face": {
-                "enum": [
-                  "front",
-                  "rear",
-                  "both"
-                ],
-                "type": "string"
-              },
-              "front_image": {
-                "type": "string"
-              },
-              "id": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "name": {
-                "maxLength": 100,
-                "type": "string"
-              },
-              "notes": {
-                "maxLength": 1000,
-                "type": "string"
-              },
-              "parent_device": {
-                "type": "string"
-              },
-              "ports": {
-                "default": [],
-                "items": {
-                  "additionalProperties": {},
-                  "properties": {
-                    "direction": {
-                      "enum": [
-                        "input",
-                        "output",
-                        "bidirectional"
-                      ],
-                      "type": "string"
-                    },
-                    "id": {
-                      "minLength": 1,
-                      "type": "string"
-                    },
-                    "label": {
-                      "maxLength": 64,
-                      "type": "string"
-                    },
-                    "signal_type": {
-                      "enum": [
-                        "analog-audio-mic",
-                        "analog-audio-line",
-                        "analog-audio-speaker",
-                        "digital-audio-aes3",
+ …486 tokens truncated…o-aes3",
                         "digital-audio-dante",
                         "digital-audio-avb",
                         "digital-video-hdmi",
@@ -925,6 +883,10 @@
           "minimum": 1,
           "type": "integer"
         },
+        "upc": {
+          "maxLength": 32,
+          "type": "string"
+        },
         "vendor_offers": {
           "items": {
             "additionalProperties": {},
@@ -1071,6 +1033,13 @@
             "default": 0,
             "minimum": 0,
             "type": "number"
+          },
+          "catalog_price_status": {
+            "enum": [
+              "pending",
+              "verified"
+            ],
+            "type": "string"
           },
           "depth_mm": {
             "default": 1000,
@@ -1321,6 +1290,10 @@
             "maximum": 9007199254740991,
             "minimum": 1,
             "type": "integer"
+          },
+          "upc": {
+            "maxLength": 32,
+            "type": "string"
           },
           "vendor_offers": {
             "items": {
