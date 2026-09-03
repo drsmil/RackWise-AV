@@ -54,6 +54,7 @@ import {
   setActiveRack as setActiveRackImpl,
   getTargetRack as getTargetRackImpl,
   type RackSelectionSync,
+  type NewRackMetadata,
 } from "./layout/rack-actions";
 import {
   createRackGroup as createRackGroupImpl,
@@ -467,6 +468,7 @@ export function createLayoutStore(
     desc_units?: boolean,
     starting_unit?: number,
     selectionSync?: RackSelectionSync,
+    metadata?: NewRackMetadata,
   ) {
     return addRackImpl(
       stateAccess,
@@ -477,6 +479,7 @@ export function createLayoutStore(
       desc_units,
       starting_unit,
       selectionSync,
+      metadata,
     );
   }
 

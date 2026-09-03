@@ -36,6 +36,7 @@ export type ActionId =
   | "new-layout-template-network-closet"
   | "new-layout-template-media-server"
   | "create-rack"
+  | "create-catalog-rack"
   | "load"
   | "import-devices"
   | "import-netbox"
@@ -540,6 +541,15 @@ export const ACTION_REGISTRY: ActionDefinition[] = [
     enabledWhen: (ctx) => !ctx.readOnly,
     appMenuGroup: "layout",
     keywords: ["rack", "add rack", "new rack", "create"],
+  },
+  {
+    id: "create-catalog-rack",
+    label: "Add catalog rack",
+    scope: "global",
+    bindings: [],
+    enabledWhen: (ctx) => !ctx.readOnly,
+    appMenuGroup: "layout",
+    keywords: ["catalog", "strong", "legion", "media rack", "add rack"],
   },
   {
     id: "load",

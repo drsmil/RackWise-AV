@@ -91,6 +91,17 @@ export function handleNewRack(): void {
   requestAnimationFrame(() => handleFitAll());
 }
 
+/** Open the catalog picker for a Strong or Legion rack preset. */
+export function handleNewCatalogRack(): void {
+  const layoutStore = getLayoutStore();
+  const toastStore = getToastStore();
+  if (!layoutStore.canAddRack) {
+    toastStore.showToast("Maximum number of racks reached", "warning");
+    return;
+  }
+  dialogStore.open("catalogRack");
+}
+
 /**
  * Seed the first rack for a genuine fresh install (#2831): same as
  * handleNewRack, but keeps the layout at a clean baseline afterward. The

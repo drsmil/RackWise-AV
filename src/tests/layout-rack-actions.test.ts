@@ -59,6 +59,42 @@ describe("Layout Store", () => {
       const rack = store.addRack("New Active Rack", 42);
       expect(store.rack.id).toBe(rack!.id);
     });
+
+    it("persists catalog metadata within the same add-rack history action", () => {
+      const store = getLayoutStore();
+      const rack = store.addRack(
+        "Legion 42U Rack",
+        42,
+        19,
+        "4-post-cabinet",
+        undefined,
+        undefined,
+        undefined,
+        {
+          manufacturer: "Legion",
+          model: "42U Rack",
+          part_number: "LEGION-42U",
+          upc: "123456789012",
+          catalog_price_status: "pending",
+          depth_mm: 609.6,
+        },
+      );
+
+      expect(rack).toMatchObject({
+        manufacturer: "Legion",
+        part_number: "LEGION-42U",
+        upc: "123456789012",
+        catalog_price_status: "pending",
+        depth_mm: 609.6,
+      });
+      store.undo();
+      expect(store.getRackById(rack!.id)).toBeUndefined();
+      store.redo();
+      expect(store.getRackById(rack!.id)).toMatchObject({
+        part_number: "LEGION-42U",
+        upc: "123456789012",
+      });
+    });
   });
 
   describe("addBayedRackGroup", () => {

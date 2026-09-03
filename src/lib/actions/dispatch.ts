@@ -45,6 +45,7 @@ import {
   handleImportFromNetBox,
   handleOpenYamlEditor,
   handleNewRack,
+  handleNewCatalogRack,
 } from "$lib/utils/dialog-actions";
 import {
   handleRackContextFocus,
@@ -211,6 +212,10 @@ export function createActionDispatch(): ActionDispatch {
     "create-rack": () => {
       if (getUIStore().readOnly) return;
       handleNewRack();
+    },
+    "create-catalog-rack": () => {
+      if (getUIStore().readOnly) return;
+      handleNewCatalogRack();
     },
     "import-devices": runImportDevices,
     "import-netbox": handleImportFromNetBox,
