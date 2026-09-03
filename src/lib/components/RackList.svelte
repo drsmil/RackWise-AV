@@ -13,6 +13,8 @@
   interface Props {
     /** Callback to create a new rack */
     onnewrack?: () => void;
+    /** Callback to select a catalog-backed rack preset. */
+    onnewcatalograck?: () => void;
     /** Context menu: export rack callback */
     onexport?: (rackIds: string[]) => void;
     /** Context menu: focus rack callback (pans and zooms canvas to fit the rack) */
@@ -25,8 +27,15 @@
     onduplicate?: (rackId: string) => void;
   }
 
-  let { onnewrack, onexport, onfocus, onedit, onrename, onduplicate }: Props =
-    $props();
+  let {
+    onnewrack,
+    onnewcatalograck,
+    onexport,
+    onfocus,
+    onedit,
+    onrename,
+    onduplicate,
+  }: Props = $props();
 
   const layoutStore = getLayoutStore();
   const selectionStore = getSelectionStore();
@@ -191,22 +200,40 @@
         ? "s"
         : ""}
     </span>
-    {#if onnewrack}
-      <Tooltip text="New Rack" position="bottom">
-        {#snippet triggerChild({ props })}
-          <button
-            {...props}
-            type="button"
-            class="new-rack-btn"
-            onclick={onnewrack}
-            aria-label="New Rack"
-            data-testid="btn-new-rack"
-          >
-            +
-          </button>
-        {/snippet}
-      </Tooltip>
-    {/if}
+    <div class="rack-actions">
+      {#if onnewcatalograck}
+        <Tooltip text="Add catalog rack" position="bottom">
+          {#snippet triggerChild({ props })}
+            <button
+              {...props}
+              type="button"
+              class="catalog-rack-btn"
+              onclick={onnewcatalograck}
+              aria-label="Add catalog rack"
+              data-testid="btn-new-catalog-rack"
+            >
+              Catalog
+            </button>
+          {/snippet}
+        </Tooltip>
+      {/if}
+      {#if onnewrack}
+        <Tooltip text="New Rack" position="bottom">
+          {#snippet triggerChild({ props })}
+            <button
+              {...props}
+              type="button"
+              class="new-rack-btn"
+              onclick={onnewrack}
+              aria-label="New Rack"
+              data-testid="btn-new-rack"
+            >
+              +
+            </button>
+          {/snippet}
+        </Tooltip>
+      {/if}
+    </div>
   </div>
 
   <div class="rack-items" role="list" aria-label="Rack list">
@@ -405,6 +432,35 @@
       background-color var(--duration-fast) ease,
       color var(--duration-fast) ease,
       border-color var(--duration-fast) ease;
+  }
+
+  .rack-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .catalog-rack-btn {
+    min-height: var(--space-8);
+    padding: 0 var(--space-3);
+    color: var(--colour-text-muted);
+    background: var(--colour-surface);
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+  }
+
+  .catalog-rack-btn:hover {
+    color: var(--colour-text);
+    background: var(--colour-surface-hover);
+    border-color: var(--colour-border-hover);
+  }
+
+  .catalog-rack-btn:focus-visible {
+    outline: 2px solid var(--colour-selection);
+    outline-offset: 2px;
   }
 
   .new-rack-btn:hover {

@@ -58,6 +58,7 @@
   import { maybeExport, handleFitAll } from "$lib/utils/app-actions";
   import {
     handleNewRack,
+    handleNewCatalogRack,
     handleDelete,
     handleAddDevice,
     seedStarterRack,
@@ -644,6 +645,7 @@
                 {:else if uiStore.sidebarTab === "racks"}
                   <RackList
                     onnewrack={handleNewRack}
+                    onnewcatalograck={handleNewCatalogRack}
                     onexport={handleRackContextExport}
                     onfocus={handleRackContextFocus}
                     onedit={handleRackContextEdit}

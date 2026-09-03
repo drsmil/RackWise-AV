@@ -26,7 +26,8 @@ export type DialogId =
   | "cleanupPrompt"
   | "yamlEditor"
   | "load"
-  | "commandPalette";
+  | "commandPalette"
+  | "catalogRack";
 
 export type SheetId =
   | "deviceDetails"

@@ -16,6 +16,7 @@ import {
   handleDelete,
   handleConfirmDelete,
   handleNewRack,
+  handleNewCatalogRack,
   seedStarterRack,
   formatRackDeleteMessage,
 } from "$lib/utils/dialog-actions";
@@ -27,6 +28,20 @@ import {
 } from "$lib/stores/selection.svelte";
 import { getToastStore, resetToastStore } from "$lib/stores/toast.svelte";
 import { createTestDeviceType, createTestRackDeleteTarget } from "./factories";
+
+describe("handleNewCatalogRack", () => {
+  beforeEach(resetAll);
+
+  it("opens the catalog rack selector without creating a generic rack", () => {
+    const layoutStore = getLayoutStore();
+    const initialCount = layoutStore.racks.length;
+
+    handleNewCatalogRack();
+
+    expect(dialogStore.isOpen("catalogRack")).toBe(true);
+    expect(layoutStore.racks).toHaveLength(initialCount);
+  });
+});
 
 function resetAll() {
   resetLayoutStore();

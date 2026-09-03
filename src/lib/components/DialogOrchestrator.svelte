@@ -14,6 +14,7 @@
   import CleanupPromptDialog from "$lib/components/CleanupPromptDialog.svelte";
   import ExportDialog from "$lib/components/ExportDialog.svelte";
   import BillOfMaterialsDialog from "$lib/components/BillOfMaterialsDialog.svelte";
+  import CatalogRackDialog from "$lib/components/CatalogRackDialog.svelte";
   import ShareDialog from "$lib/components/ShareDialog.svelte";
   import LayoutYamlPanel from "$lib/components/LayoutYamlPanel.svelte";
   import Dialog from "$lib/components/Dialog.svelte";
@@ -103,6 +104,7 @@
   let billOfMaterialsDialogOpen = $derived(
     dialogStore.isOpen("billOfMaterials"),
   );
+  let catalogRackDialogOpen = $derived(dialogStore.isOpen("catalogRack"));
   let shareDialogOpen = $derived(dialogStore.isOpen("share"));
   let yamlEditorDialogOpen = $derived(dialogStore.isOpen("yamlEditor"));
   let helpPanelOpen = $derived(dialogStore.isOpen("help"));
@@ -860,6 +862,11 @@
 <BillOfMaterialsDialog
   open={billOfMaterialsDialogOpen}
   layout={layoutStore.layout}
+  onclose={() => dialogStore.close()}
+/>
+
+<CatalogRackDialog
+  open={catalogRackDialogOpen}
   onclose={() => dialogStore.close()}
 />
 
