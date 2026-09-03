@@ -9,9 +9,9 @@ describe("commercial catalog imports", () => {
   it("retains every SKU supplied by the initial distributor exports", () => {
     // The supplied spreadsheet exports are a versioned import contract.
     // eslint-disable-next-line no-restricted-syntax -- Detect accidental loss during import regeneration.
-    expect(commercialCatalogItems).toHaveLength(404);
+    expect(commercialCatalogItems).toHaveLength(421);
     expect(new Set(commercialCatalogItems.map((item) => item.sku)).size).toBe(
-      404,
+      421,
     );
     expect(commercialCatalogItems.every((item) => item.price === null)).toBe(
       true,
@@ -19,6 +19,20 @@ describe("commercial catalog imports", () => {
     expect(
       commercialCatalogItems.every((item) => item.price_status === "pending"),
     ).toBe(true);
+  });
+
+  it("imports the selected WattBox UPS and power-strip catalog records", () => {
+    const wattbox = commercialCatalogItems.filter(
+      (item) => item.manufacturer === "WattBox",
+    );
+
+    expect(wattbox).toHaveLength(17);
+    expect(wattbox.find((item) => item.sku === "WB-UPS-1500-8")).toMatchObject({
+      upc: "842822034609",
+      price: null,
+      price_status: "pending",
+      product_url: null,
+    });
   });
 
   it("identifies the Legion rack range with its source SKU and UPC", () => {
