@@ -58,6 +58,13 @@
             "maxLength": 100,
             "type": "string"
           },
+          "catalog_price_status": {
+            "enum": [
+              "pending",
+              "verified"
+            ],
+            "type": "string"
+          },
           "category": {
             "enum": [
               "server",
@@ -533,6 +540,10 @@
             "minimum": 0.5,
             "type": "number"
           },
+          "upc": {
+            "maxLength": 32,
+            "type": "string"
+          },
           "va_rating": {
             "exclusiveMinimum": 0,
             "maximum": 9007199254740991,
@@ -674,6 +685,13 @@
           "default": 0,
           "minimum": 0,
           "type": "number"
+        },
+        "catalog_price_status": {
+          "enum": [
+            "pending",
+            "verified"
+          ],
+          "type": "string"
         },
         "depth_mm": {
           "default": 1000,
@@ -925,6 +943,10 @@
           "minimum": 1,
           "type": "integer"
         },
+        "upc": {
+          "maxLength": 32,
+          "type": "string"
+        },
         "vendor_offers": {
           "items": {
             "additionalProperties": {},
@@ -1071,6 +1093,13 @@
             "default": 0,
             "minimum": 0,
             "type": "number"
+          },
+          "catalog_price_status": {
+            "enum": [
+              "pending",
+              "verified"
+            ],
+            "type": "string"
           },
           "depth_mm": {
             "default": 1000,
@@ -1321,6 +1350,10 @@
             "maximum": 9007199254740991,
             "minimum": 1,
             "type": "integer"
+          },
+          "upc": {
+            "maxLength": 32,
+            "type": "string"
           },
           "vendor_offers": {
             "items": {

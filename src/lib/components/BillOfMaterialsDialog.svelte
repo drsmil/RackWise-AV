@@ -67,6 +67,8 @@
                   {#if line.partNumber}<span class="part-number"
                       >{line.partNumber}</span
                     >{/if}
+                  {#if line.upc}<span class="part-number">UPC {line.upc}</span
+                    >{/if}
                   {#if line.requiredBy.length > 0}
                     <span class="required-by"
                       >Required by {line.requiredBy.join(", ")}</span
